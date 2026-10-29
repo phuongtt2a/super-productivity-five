@@ -7,7 +7,7 @@ An independent, zen-inspired plugin for **[Super Productivity](https://app.super
 
 **Super Productivity** is an open-source task manager and time-tracking app. Try it at **[app.super-productivity.com](https://app.super-productivity.com/)**. **Five** adds a quiet, dedicated view showing only five tasks you want to focus on now, in the order you choose. It's a companion to Super Productivity—not a replacement for its projects, backlog, or time tracking.
 
-![Five focus screen with five unnumbered priorities, larger titles at the top, and a translucent canvas](docs/screenshots/focus-desktop.webp)
+![Five focus screen with five unnumbered priorities, larger titles at the top, and a translucent canvas](docs/screenshots/focus-dark-v1.0.1.webp)
 
 *Dark-mode preview: Five follows your Super Productivity theme and lets your background show through.*
 
@@ -26,7 +26,7 @@ Choosing a small number of tasks can make your day feel clearer: fewer competing
 - **Make room as you finish.** Mark the top task complete and the next task moves up automatically. An empty space opens at the bottom. You can select another task, even if you've already completed five tasks that day.
 - **Keep today's plan.** Your daily positions and plugin-defined priorities are saved using Super Productivity's plugin synced-data API.
 
-![Arrange Five screen showing task search and an unnumbered priority list](docs/screenshots/arrange-five.webp)
+![Arrange Five screen showing task search and an unnumbered priority list](docs/screenshots/arrange-dark-v1.0.1.webp)
 
 *Arrange Five uses theme-aware translucent panels; the task-creation form and controls follow the same palette.*
 
@@ -34,9 +34,15 @@ Choosing a small number of tasks can make your day feel clearer: fewer competing
 
 | Focus screen | Arrange Five |
 | --- | --- |
-| ![Five focus view in light theme](docs/screenshots/focus-light.webp) | ![Arrange Five in light theme](docs/screenshots/arrange-light.webp) |
+| ![Five focus view in light theme](docs/screenshots/focus-light-v1.0.1.webp) | ![Arrange Five in light theme](docs/screenshots/arrange-light-v1.0.1.webp) |
 
 These previews use sample tasks and test backgrounds. The installed plugin respects your own Super Productivity wallpaper, theme, and background-opacity settings.
+
+## Latest release
+
+**[Download Five v1.0.1](https://github.com/phuongtt2a/super-productivity-five/releases/tag/v1.0.1)** — download `five-super-productivity.zip` from the **Assets** section. This is the installable plugin, not the source-code ZIP.
+
+This patch release supersedes the earlier v1.0.0 package. Versioned screenshot filenames make sure GitHub displays the updated design rather than cached older images.
 
 ## Install
 

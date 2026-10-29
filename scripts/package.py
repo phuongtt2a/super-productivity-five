@@ -2,7 +2,7 @@
 """Package Five as the four-file ZIP expected by Super Productivity.
 
 Usage: python scripts/package.py [--output dist/five-super-productivity.zip]
-       python scripts/package.py --tag v3.1.0
+       python scripts/package.py --tag v1.0.1
 No third-party dependencies.
 """
 import argparse
@@ -42,6 +42,6 @@ def build(output: Path, tag: str | None = None) -> Path:
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, default=ROOT / 'dist' / 'five-super-productivity.zip')
-    parser.add_argument('--tag', help='Optional GitHub tag, e.g. v3.1.0')
+    parser.add_argument('--tag', help='Optional GitHub tag, e.g. v1.0.1')
     args = parser.parse_args()
     print(build(args.output.resolve(), args.tag))

@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.1 — Screenshot and release consistency
+
+- Publish the latest Five UI and behavior fixes as a distinct, immutable patch release rather than silently updating the older `v1.0.0` archive.
+- Refresh the README with **new versioned light- and dark-mode screenshots** captured from the updated plugin UI. New filenames avoid stale GitHub image caches.
+- Confirm the current focus view has no task numbering, uses visibly decreasing title and checkbox sizes, and shows “Choose five. Focus on one.”
+- Confirm the finished count reverses when a task returns to To Do and the priority queue closes gaps after task completion.
+- Keep the same plugin ID (`sp-top-5-today`) so existing daily selections are preserved.
+
 ## 1.0.0 — First public release
 
 - Five focuses your attention on **five chosen priorities for today, one task at a time**.

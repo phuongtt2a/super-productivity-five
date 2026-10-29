@@ -44,13 +44,13 @@ jobs:
           TAG: ${{ steps.version.outputs.tag }}
         run: |
           if gh release view "$TAG" >/dev/null 2>&1; then
-            gh release upload "$TAG" dist/five-super-productivity.zip --clobber
-            gh release edit "$TAG" --latest
+            echo "ERROR: release $TAG already exists. Bump plugin/manifest.json instead of overwriting published assets." >&2
+            exit 1
           else
             gh release create "$TAG" \
               dist/five-super-productivity.zip \
               --target "$GITHUB_SHA" \
               --title "Five $TAG" \
-              --notes "Five — the first stable release. Choose five priorities for today, then focus on one task at a time. Download the installable ZIP from Assets." \
+              --notes "Five — choose five priorities for today, then focus on one task at a time. This patch release updates the plugin and README screenshots. Download the installable ZIP from Assets." \
               --latest
           fi

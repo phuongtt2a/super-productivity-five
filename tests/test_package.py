@@ -23,7 +23,7 @@ class PackageTests(unittest.TestCase):
 
     def test_zip_root_is_exactly_four_files(self):
         with tempfile.TemporaryDirectory() as temp:
-            out=build(Path(temp)/'five.zip',tag='v1.0.0')
+            out=build(Path(temp)/'five.zip',tag='v1.0.1')
             with zipfile.ZipFile(out) as z:
                 self.assertEqual(z.namelist(),list(FILES))
                 self.assertIsNone(z.testzip())
@@ -33,6 +33,16 @@ class PackageTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             with self.assertRaises(ValueError):
                 build(Path(temp)/'five.zip',tag='v0.0.0')
+
+    def test_readme_screenshots_and_version_are_consistent(self):
+        manifest=json.loads((ROOT/'plugin/manifest.json').read_text())
+        self.assertEqual(manifest['version'],'1.0.1')
+        readme=(ROOT/'README.md').read_text()
+        import re
+        shots=re.findall(r'docs/screenshots/[a-z-]+-v1\.0\.1\.webp',readme)
+        self.assertGreaterEqual(len(set(shots)),4)
+        for shot in set(shots):
+            self.assertTrue((ROOT/shot).exists(),shot)
 
     def test_ui_has_core_controls(self):
         html=(ROOT/'plugin/index.html').read_text()
