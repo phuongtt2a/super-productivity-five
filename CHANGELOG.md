@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.2 — Clearer focus, consistently circular controls
+
+- Replace the focus-screen heading and README tagline with **“Less, but meaningful.”**
+- Keep every completion control circular, even at the smallest task rank and under host UI Kit button styling.
+- Refresh the README screenshots to show the latest typography and controls.
+- Preserve the existing plugin ID and stored selections.
+
+
 ## 1.0.1 — Screenshot and release consistency
 
 - Publish the latest Five UI and behavior fixes as a distinct, immutable patch release rather than silently updating the older `v1.0.0` archive.

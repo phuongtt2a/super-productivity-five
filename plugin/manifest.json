@@ -1,7 +1,7 @@
 {
   "id": "sp-top-5-today",
   "name": "Five",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A calm focus view for Super Productivity. Choose your five most important tasks for today, then work on one at a time.",
   "manifestVersion": 1,
   "minSupVersion": "14.0.0",

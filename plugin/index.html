@@ -51,7 +51,15 @@ button:focus-visible,input:focus-visible,select:focus-visible,.queue-row:focus-v
 .focus-row{display:grid;grid-template-columns:58px minmax(0,1fr);align-items:center;gap:clamp(15px,2vw,25px);min-height:0;padding:clamp(3px,1vh,13px) clamp(2px,.5vw,8px);border-bottom:1px solid var(--zen-line);position:relative}
 .focus-row:first-child{border-top:1px solid var(--zen-line)}
 .focus-row:first-child:not(.empty):before{content:"";position:absolute;left:-14px;top:17%;bottom:17%;width:3px;border-radius:4px;background:var(--zen-accent)}
-.complete-button{display:grid;place-items:center;justify-self:center;width:var(--complete-size,36px);height:var(--complete-size,36px);margin-top:-9px;border:1.6px solid var(--zen-accent);color:var(--zen-accent);border-radius:50%;background:transparent;font-size:20px;transition:background .15s,transform .15s}
+/* Fix host UI-kit button minimum widths/padding stretching the smaller circles.
+   Every completion control must be a true square at every priority rank. */
+.complete-button{display:grid;place-items:center;justify-self:center;align-self:center;box-sizing:border-box;
+  width:var(--complete-size,36px);height:var(--complete-size,36px);
+  min-width:var(--complete-size,36px);min-height:var(--complete-size,36px);
+  max-width:var(--complete-size,36px);max-height:var(--complete-size,36px);
+  aspect-ratio:1 / 1;padding:0;margin-top:-9px;flex-shrink:0;
+  border:1.6px solid var(--zen-accent);color:var(--zen-accent);border-radius:50%;background:transparent;
+  line-height:1;font-size:20px;transition:background .15s,transform .15s}
 .complete-button:hover{background:var(--zen-accent-tint);transform:scale(1.07)}
 /* Scale the completion affordance with the visual priority of its task.
    A stable check column keeps the titles aligned, and the slight upward shift
@@ -199,7 +207,7 @@ html.sp-host.sp-light { color-scheme:light;--zen-accent:#53715c;--zen-accent-tex
     <div class="top-actions"><span class="date" id="date-label"></span><button type="button" id="manage-button" class="quiet-button">Arrange Five <span aria-hidden="true">↗</span></button><button type="button" id="back-button" class="quiet-button hidden">← View Five</button></div>
   </header>
   <section id="focus-screen" class="focus-view" aria-labelledby="focus-heading">
-    <div class="hero"><h1 id="focus-heading">Choose five. Focus on one.</h1><div id="focus-progress" class="hero-progress">0 of 5 planned</div></div>
+    <div class="hero"><h1 id="focus-heading">Less, but meaningful.</h1><div id="focus-progress" class="hero-progress">0 of 5 planned</div></div>
     <div id="focus-list" class="focus-five" aria-label="Your five tasks, highest priority first"></div>
     <footer class="footline"><button type="button" id="history-button" class="completion-stat" aria-label="View tasks finished today" aria-haspopup="dialog"><span class="round" aria-hidden="true">✓</span><span id="completed-count">0 finished today</span><span aria-hidden="true">↗</span></button></footer>
   </section>

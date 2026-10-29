@@ -51,6 +51,6 @@ jobs:
               dist/five-super-productivity.zip \
               --target "$GITHUB_SHA" \
               --title "Five $TAG" \
-              --notes "Five — choose five priorities for today, then focus on one task at a time. This patch release updates the plugin and README screenshots. Download the installable ZIP from Assets." \
+              --notes "Five — less, but meaningful. This patch release refines the focus screen and keeps completion buttons circular. Download the installable ZIP from Assets." \
               --latest
           fi

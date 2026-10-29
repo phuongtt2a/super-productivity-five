@@ -8,16 +8,16 @@ The repository should be public so that people can inspect the source and downlo
 
 The repository is published at [phuongtt2a/super-productivity-five](https://github.com/phuongtt2a/super-productivity-five).
 
-The latest release is `v1.0.1`. The workflow validates the package and creates a GitHub Release with **`five-super-productivity.zip`** under Assets. `v1.0.0` is preserved for users who need the older artifact.
+The latest release is `v1.0.2`. The workflow validates the package and creates a GitHub Release with **`five-super-productivity.zip`** under Assets. `v1.0.0` is preserved for users who need the older artifact.
 
-The early development release `v3.1.0` predates semantic version reset. The `v1.0.1` patch release fixes the stale-release and cached-screenshot confusion without moving old public tags.
+The early development release `v3.1.0` predates semantic version reset. The `v1.0.2` patch release refines typography and corrects host button sizing; the earlier `v1.0.1` fixed the stale-release and cached-screenshot confusion without moving old public tags.
 
 ## Subsequent releases
 
 1. Edit source and tests.
-2. Bump the `plugin/manifest.json` semantic version, e.g. `1.0.2`.
+2. Bump the `plugin/manifest.json` semantic version, e.g. `1.0.3`.
 3. Update `CHANGELOG.md`, commit changes, and push to `main`.
-4. Tag the new commit: `git tag v1.0.2 && git push origin v1.0.2`.
+4. Tag the new commit: `git tag v1.0.3 && git push origin v1.0.3`.
 5. Confirm the release workflow succeeded and download the ZIP from **Releases → Assets**.
 
 GitHub's auto-generated **Source code (zip)** archive is not the installable ZIP. Users should always download **`five-super-productivity.zip`** from the Release Assets.
