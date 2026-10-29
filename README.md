@@ -1,6 +1,6 @@
 # Five
 
-**Choose five priorities for today. Focus on one at a time.**  
+**Choose five. Focus on one.**  
 An independent, zen-inspired plugin for **[Super Productivity](https://app.super-productivity.com/)** by **[phuongtt2a](https://github.com/phuongtt2a)**.
 
 [![Super Productivity](https://img.shields.io/badge/For-Super%20Productivity-56765f)](https://super-productivity.com/) [![License: MIT](https://img.shields.io/badge/License-MIT-informational)](LICENSE)
@@ -9,7 +9,7 @@ An independent, zen-inspired plugin for **[Super Productivity](https://app.super
 
 ![Five focus screen with five unnumbered priorities, larger titles at the top, and a translucent canvas](docs/screenshots/focus-desktop.webp)
 
-*Illustrative dark-theme preview with a sample background. Five follows the background and theme of your Super Productivity installation.*
+*Dark-mode preview: Five follows your Super Productivity theme and lets your background show through.*
 
 ## Why only five?
 
@@ -28,7 +28,15 @@ Choosing a small number of tasks can make your day feel clearer: fewer competing
 
 ![Arrange Five screen showing task search and an unnumbered priority list](docs/screenshots/arrange-five.webp)
 
-*Arrange Five uses theme-aware translucent panels; the task-creation form follows the same palette.*
+*Arrange Five uses theme-aware translucent panels; the task-creation form and controls follow the same palette.*
+
+### Light-theme previews
+
+| Focus screen | Arrange Five |
+| --- | --- |
+| ![Five focus view in light theme](docs/screenshots/focus-light.webp) | ![Arrange Five in light theme](docs/screenshots/arrange-light.webp) |
+
+These previews use sample tasks and test backgrounds. The installed plugin respects your own Super Productivity wallpaper, theme, and background-opacity settings.
 
 ## Install
 
@@ -55,7 +63,7 @@ No separate server, login, hosting, or Node.js build is required to run Five ins
 1. Open **Five** to see five visible positions.
 2. Select **Arrange Five**. Search or filter your tasks, or choose **New task**.
 3. Use `+` to add a task to the end, or **drag from the task library directly onto a target position**. Drag within the selected list to change priority; the ↑ and ↓ controls provide a keyboard/touch-friendly alternative.
-4. Select **Return to focus** and begin with the top task (your highest priority).
+4. Select **View Five** and begin with the top task (your highest priority).
 5. Click the circular control next to a task to complete it in Super Productivity. The following tasks shift upward, leaving room for another at the bottom.
 
 **Finished today:** The small tally at the bottom of the focus screen counts tasks you completed *from Five* today. Select it to see their titles or return one to To Do. When a completed task is reopened in Super Productivity, Five removes it from the tally and restores it near its previous position if there's room. If all five spaces are full, use Arrange Five to bring it back. A new day starts at zero; previous days remain in Super Productivity history.
