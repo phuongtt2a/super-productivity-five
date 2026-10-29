@@ -23,7 +23,7 @@ class PackageTests(unittest.TestCase):
 
     def test_zip_root_is_exactly_four_files(self):
         with tempfile.TemporaryDirectory() as temp:
-            out=build(Path(temp)/'five.zip',tag='v3.1.0')
+            out=build(Path(temp)/'five.zip',tag='v1.0.0')
             with zipfile.ZipFile(out) as z:
                 self.assertEqual(z.namelist(),list(FILES))
                 self.assertIsNone(z.testzip())
