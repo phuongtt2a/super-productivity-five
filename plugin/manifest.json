@@ -1,0 +1,28 @@
+{
+  "id": "sp-top-5-today",
+  "name": "Five",
+  "version": "3.1.0",
+  "description": "A calm five-slot focus view for Super Productivity. Choose, create, and arrange tasks for today; complete one to make room for another.",
+  "manifestVersion": 1,
+  "minSupVersion": "14.0.0",
+  "author": "phuongtt2a",
+  "icon": "icon.svg",
+  "iFrame": true,
+  "sidePanel": false,
+  "hooks": [
+    "taskCreated",
+    "taskUpdate",
+    "taskComplete",
+    "taskDelete",
+    "persistedDataChanged"
+  ],
+  "permissions": [
+    "getTasks",
+    "getAllProjects",
+    "updateTask",
+    "persistDataSynced",
+    "loadSyncedData",
+    "selectTask",
+    "addTask"
+  ]
+}
