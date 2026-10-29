@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.3 — Clearer priorities and finished-task separation
+
+- Add a subtle divider between the Finished today introduction and its list or empty state.
+- Preserve dividers between completed task rows without doubling the first line.
+- Replace P1/P2/P3 shorthand with High/Medium/Low throughout the planner, new-task form, and focus metadata.
+- Make the priority control wide enough for plain-language labels on desktop and mobile.
+- No changes to task counts, daily reset, or data persistence.
+
 ## 1.0.2 — Clearer focus, consistently circular controls
 
 - Replace the focus-screen heading and README tagline with **“Less, but meaningful.”**

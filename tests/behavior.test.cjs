@@ -80,3 +80,19 @@ test('completion circles scale with task priority and align to title', () => {
   assert.match(html, /aspect-ratio:1 \/ 1/);
   assert.match(html, /padding:0/);
 });
+
+test('Finished today has a visible separator above the empty state', () => {
+  assert.match(html, /\.history-items\{[^}]*border-top:1px solid var\(--zen-line\)/);
+  assert.match(html, /\.history-item \+ \.history-item\{border-top:1px solid var\(--zen-line\)\}/);
+  assert.match(html, /Nothing finished from Five yet today\./);
+});
+
+
+test('priority labels use everyday words in all screens', () => {
+  assert.doesNotMatch(html, /\bP[123]\b/);
+  assert.match(html, /<option value="high">High<\/option>/);
+  assert.match(html, /<option value="medium">Medium<\/option>/);
+  assert.match(html, /<option value="low">Low<\/option>/);
+  assert.match(html, /high:'High priority'/);
+  assert.match(html, /\.mini-select\{[^}]*min-width:90px/);
+});

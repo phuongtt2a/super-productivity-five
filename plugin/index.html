@@ -94,8 +94,10 @@ button:focus-visible,input:focus-visible,select:focus-visible,.queue-row:focus-v
 .history-heading h2{font:500 28px var(--zen-serif);margin:0}
 .history-close{border:1px solid var(--zen-line);color:var(--zen-text);background:transparent;border-radius:100px;padding:7px 13px}
 .history-copy{font-size:13px;line-height:1.5;color:var(--zen-muted);margin:0}
-.history-items{overflow:auto;min-height:0;scrollbar-width:thin}
-.history-item{display:flex;justify-content:space-between;gap:13px;align-items:center;border-top:1px solid var(--zen-line);padding:12px 0}
+/* Section divider is visible even in the empty state. */
+.history-items{overflow:auto;min-height:0;scrollbar-width:thin;border-top:1px solid var(--zen-line);padding-top:12px}
+.history-item{display:flex;justify-content:space-between;gap:13px;align-items:center;padding:12px 0}
+.history-item + .history-item{border-top:1px solid var(--zen-line)}
 .history-task{font-size:15px;line-height:1.4;overflow-wrap:anywhere}
 .history-undo{border:1px solid var(--zen-line);background:transparent;color:var(--zen-text);padding:8px 10px;border-radius:100px;white-space:nowrap;font-size:12px}
 .history-undo:hover{background:var(--zen-accent-tint)}
@@ -133,7 +135,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,.queue-row:focus-v
 .picker-info,.queue-info{flex:1;min-width:0}
 .picker-title,.queue-title{font-size:14px;line-height:1.35;font-weight:650;overflow-wrap:anywhere}
 .picker-meta,.queue-meta{font-size:11px;color:var(--zen-muted);margin-top:5px;display:flex;flex-wrap:wrap;gap:6px}
-.mini-select{max-width:70px;border:1px solid var(--zen-line);border-radius:8px;background:var(--zen-input);color:var(--zen-text);padding:6px 3px;font-size:11px}
+.mini-select{width:90px;min-width:90px;max-width:90px;flex-shrink:0;border:1px solid var(--zen-line);border-radius:8px;background:var(--zen-input);color:var(--zen-text);padding:6px 3px;font-size:11px}
 .add-btn{height:32px;width:32px;display:grid;place-items:center;border-radius:50%;font-size:18px;border:1px solid var(--zen-line);background:transparent;color:var(--zen-accent);flex:0 0 auto}
 .add-btn.chosen{background:var(--zen-accent);color:var(--zen-accent-text)}
 .queue{flex:1;min-height:0;display:grid;grid-template-rows:repeat(5,minmax(0,1fr));padding:clamp(9px,2vh,20px);gap:7px}
@@ -223,7 +225,7 @@ html.sp-host.sp-light { color-scheme:light;--zen-accent:#53715c;--zen-accent-tex
           <h3 class="create-form-heading">A new task</h3>
           <div class="field"><label for="new-title">Task name</label><input id="new-title" type="text" maxlength="300" placeholder="What needs to get done?" required></div>
           <div class="create-form-grid"><div class="field"><label for="new-project">Project</label><select id="new-project"><option value="">Inbox / default</option></select></div><div class="field"><label for="new-due">Due date (optional)</label><input id="new-due" type="date"></div></div>
-          <div class="field"><label for="new-priority">Priority for your five</label><select id="new-priority"><option value="none">No priority</option><option value="high">P1 — High</option><option value="medium">P2 — Medium</option><option value="low">P3 — Low</option></select></div>
+          <div class="field"><label for="new-priority">Priority for your five</label><select id="new-priority"><option value="none">No priority</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select></div>
           <div class="create-form-actions"><button id="cancel-create" type="button" class="quiet-button small flat">Cancel</button><button id="submit-create" type="submit" class="quiet-button primary small">Create & add to Five</button></div>
         </form>
         <div class="task-browser" id="task-browser"></div>
@@ -259,7 +261,7 @@ html.sp-host.sp-light { color-scheme:light;--zen-accent:#53715c;--zen-accent-tex
   function dueLabel(task) { const d=dueDate(task);return !d?'No deadline':d<state.today?'Overdue · '+shortDate(d):d===state.today?'Due today':d===shiftDay(1)?'Due tomorrow':'Due '+shortDate(d); }
   function urgent(task) { const d=dueDate(task);return !!d && d<=state.today; }
   function priority(id) { return state.saved.priorities[id]||'none'; }
-  function priorityLabel(id) { return ({high:'P1 · High',medium:'P2 · Medium',low:'P3 · Low',none:'No priority'})[priority(id)]; }
+  function priorityLabel(id) { return ({high:'High priority',medium:'Medium priority',low:'Low priority',none:'No priority'})[priority(id)]; }
   // Keep a compact, ordered queue. Older saved arrays may contain gaps;
   // these are migrated without losing the relative order of selected tasks.
   function pack(values) {
@@ -543,7 +545,7 @@ html.sp-host.sp-light { color-scheme:light;--zen-accent:#53715c;--zen-accent-tex
     $('task-browser').innerHTML=available.length?available.map(t=>{
       const picked=chosen.includes(t.id),p=priority(t.id);
       return `<div class="picker-row" draggable="true" data-drag-task="${esc(t.id)}"><span class="drag-handle" aria-hidden="true">⠿</span><div class="picker-info"><div class="picker-title">${esc(textName(t))}</div><div class="picker-meta"><span>${esc(projectName(t))}</span><span>·</span><span class="${urgent(t)?'due-urgent':''}">${esc(dueLabel(t))}</span></div></div>
-      <select class="mini-select" data-priority="${esc(t.id)}" aria-label="Priority for ${esc(textName(t))}"><option value="none" ${p==='none'?'selected':''}>—</option><option value="high" ${p==='high'?'selected':''}>P1</option><option value="medium" ${p==='medium'?'selected':''}>P2</option><option value="low" ${p==='low'?'selected':''}>P3</option></select>
+      <select class="mini-select" data-priority="${esc(t.id)}" aria-label="Priority for ${esc(textName(t))}"><option value="none" ${p==='none'?'selected':''}>—</option><option value="high" ${p==='high'?'selected':''}>High</option><option value="medium" ${p==='medium'?'selected':''}>Medium</option><option value="low" ${p==='low'?'selected':''}>Low</option></select>
       <button type="button" class="add-btn ${picked?'chosen':''}" data-${picked?'remove':'add'}="${esc(t.id)}" aria-label="${picked?'Remove':'Add'} ${esc(textName(t))}" ${!picked&&countSelected()>=MAX?'disabled':''}>${picked?'✓':'+'}</button></div>`;
     }).join(''):'<div class="notice">No matching tasks. Try a different search or project.</div>';
   }

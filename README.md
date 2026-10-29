@@ -7,7 +7,7 @@ An independent, zen-inspired plugin for **[Super Productivity](https://app.super
 
 **Super Productivity** is an open-source task manager and time-tracking app. Try it at **[app.super-productivity.com](https://app.super-productivity.com/)**. **Five** adds a quiet, dedicated view showing only five tasks you want to focus on now, in the order you choose. It's a companion to Super Productivity—not a replacement for its projects, backlog, or time tracking.
 
-![Five focus screen with five unnumbered priorities, larger titles at the top, and a translucent canvas](docs/screenshots/focus-dark-v1.0.2.webp)
+![Five focus screen with five unnumbered priorities, larger titles at the top, and a translucent canvas](docs/screenshots/focus-dark-v1.0.3.webp)
 
 *Dark-mode preview: Five follows your Super Productivity theme and lets your background show through.*
 
@@ -20,13 +20,13 @@ Choosing a small number of tasks can make your day feel clearer: fewer competing
 ## What you can do
 
 - **See your Five at a glance.** The focus screen blends into Super Productivity in light and dark mode, with five clean lines without visible numbering, cards, a task library, or vertical scrolling. The top task is clearly largest; later tasks become progressively smaller.
-- **Arrange Five.** Open a separate planning screen to find tasks in your Super Productivity projects, search, sort by due date or plugin priority, and drag them into a clear priority order.
+- **Arrange Five.** Open a separate planning screen to find tasks in your Super Productivity projects, search, sort by due date or **High / Medium / Low** priority, and drag them into a clear priority order.
 - **One priority queue.** Drag a task to any position to insert it there; other tasks shift to make room. No numbered slots and no gaps. Use the arrow controls if dragging is inconvenient.
 - **Create tasks without leaving Five.** Use **New task** in Arrange Five; tasks are created in Super Productivity, not in a separate private list.
 - **Make room as you finish.** Mark the top task complete and the next task moves up automatically. An empty space opens at the bottom. You can select another task, even if you've already completed five tasks that day.
 - **Keep today's plan.** Your daily positions and plugin-defined priorities are saved using Super Productivity's plugin synced-data API.
 
-![Arrange Five screen showing task search and an unnumbered priority list](docs/screenshots/arrange-dark-v1.0.2.webp)
+![Arrange Five screen showing task search and an unnumbered priority list](docs/screenshots/arrange-dark-v1.0.3.webp)
 
 *Arrange Five uses theme-aware translucent panels; the task-creation form and controls follow the same palette.*
 
@@ -34,15 +34,15 @@ Choosing a small number of tasks can make your day feel clearer: fewer competing
 
 | Focus screen | Arrange Five |
 | --- | --- |
-| ![Five focus view in light theme](docs/screenshots/focus-light-v1.0.2.webp) | ![Arrange Five in light theme](docs/screenshots/arrange-light-v1.0.2.webp) |
+| ![Five focus view in light theme](docs/screenshots/focus-light-v1.0.3.webp) | ![Arrange Five in light theme](docs/screenshots/arrange-light-v1.0.3.webp) |
 
 These previews use sample tasks and test backgrounds. The installed plugin respects your own Super Productivity wallpaper, theme, and background-opacity settings.
 
 ## Latest release
 
-**[Download Five v1.0.2](https://github.com/phuongtt2a/super-productivity-five/releases/tag/v1.0.2)** — download `five-super-productivity.zip` from the **Assets** section. This is the installable plugin, not the source-code ZIP.
+**[Download Five v1.0.3](https://github.com/phuongtt2a/super-productivity-five/releases/tag/v1.0.3)** — download `five-super-productivity.zip` from the **Assets** section. This is the installable plugin, not the source-code ZIP.
 
-This patch release refines the focus-screen slogan and keeps every completion control circular at all priority levels, including on smaller screens. Versioned screenshot filenames avoid stale GitHub images.
+This patch release supersedes the earlier v1.0.2 package. Versioned screenshot filenames make sure GitHub displays the updated design rather than cached older images.
 
 ## Install
 
@@ -72,7 +72,7 @@ No separate server, login, hosting, or Node.js build is required to run Five ins
 4. Select **View Five** and begin with the top task (your highest priority).
 5. Click the circular control next to a task to complete it in Super Productivity. The following tasks shift upward, leaving room for another at the bottom.
 
-**Finished today:** The small tally at the bottom of the focus screen counts tasks you completed *from Five* today. Select it to see their titles or return one to To Do. When a completed task is reopened in Super Productivity, Five removes it from the tally and restores it near its previous position if there's room. If all five spaces are full, use Arrange Five to bring it back. A new day starts at zero; previous days remain in Super Productivity history.
+**Finished today:** A subtle divider separates its explanation from the completion list (or empty state). The small tally at the bottom of the focus screen counts tasks you completed *from Five* today. Select it to see their titles or return one to To Do. When a completed task is reopened in Super Productivity, Five removes it from the tally and restores it near its previous position if there's room. If all five spaces are full, use Arrange Five to bring it back. A new day starts at zero; previous days remain in Super Productivity history.
 
 The five selected tasks are a **short daily priority list**, not five things to work on simultaneously or a limit on daily completions. Focus on **one task at a time**.
 
