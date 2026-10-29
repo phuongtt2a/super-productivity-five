@@ -44,15 +44,24 @@ button:focus-visible,input:focus-visible,select:focus-visible,.queue-row:focus-v
 .focus-view{flex:1;min-height:0;width:min(920px,100%);margin:0 auto;display:flex;flex-direction:column}
 .hero{flex:0 0 auto;display:flex;justify-content:space-between;align-items:end;gap:20px;padding:clamp(14px,3.2vh,35px) 0 clamp(10px,2.2vh,24px)}
 .kicker{margin:0 0 8px;font-size:11px;text-transform:uppercase;letter-spacing:.21em;font-weight:750;color:var(--zen-accent)}
-.hero h1{margin:0;font:400 clamp(29px,4.9vh,50px)/1.06 var(--zen-serif);letter-spacing:-.053em}
+.hero h1{margin:0;font:400 clamp(26px,4.4vh,46px)/1.1 var(--zen-serif);letter-spacing:-.053em}
 .hero .sub{font-size:13px;color:var(--zen-muted);margin:9px 0 0}
 .hero-progress{white-space:nowrap;color:var(--zen-muted);font-size:12px;margin-bottom:4px;letter-spacing:.01em}
 .focus-five{flex:1;min-height:0;display:grid;grid-template-rows:1.6fr 1.2fr 1fr .9fr .85fr;gap:0}
-.focus-row{display:grid;grid-template-columns:48px minmax(0,1fr);align-items:center;gap:clamp(15px,2vw,25px);min-height:0;padding:clamp(3px,1vh,13px) clamp(2px,.5vw,8px);border-bottom:1px solid var(--zen-line);position:relative}
+.focus-row{display:grid;grid-template-columns:58px minmax(0,1fr);align-items:center;gap:clamp(15px,2vw,25px);min-height:0;padding:clamp(3px,1vh,13px) clamp(2px,.5vw,8px);border-bottom:1px solid var(--zen-line);position:relative}
 .focus-row:first-child{border-top:1px solid var(--zen-line)}
 .focus-row:first-child:not(.empty):before{content:"";position:absolute;left:-14px;top:17%;bottom:17%;width:3px;border-radius:4px;background:var(--zen-accent)}
-.complete-button{display:grid;place-items:center;width:38px;height:38px;border:1.6px solid var(--zen-accent);color:var(--zen-accent);border-radius:50%;background:transparent;font-size:20px;transition:background .15s,transform .15s}
+.complete-button{display:grid;place-items:center;justify-self:center;width:var(--complete-size,36px);height:var(--complete-size,36px);margin-top:-9px;border:1.6px solid var(--zen-accent);color:var(--zen-accent);border-radius:50%;background:transparent;font-size:20px;transition:background .15s,transform .15s}
 .complete-button:hover{background:var(--zen-accent-tint);transform:scale(1.07)}
+/* Scale the completion affordance with the visual priority of its task.
+   A stable check column keeps the titles aligned, and the slight upward shift
+   aligns each circle with the title rather than its due-date metadata. */
+.focus-row:nth-child(1){--complete-size:48px}
+.focus-row:nth-child(2){--complete-size:42px}
+.focus-row:nth-child(3){--complete-size:36px}
+.focus-row:nth-child(4){--complete-size:31px}
+.focus-row:nth-child(5){--complete-size:27px}
+
 .focus-copy{min-width:0;display:flex;flex-direction:column;justify-content:center}
 .focus-title{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere;line-height:1.17;letter-spacing:-.028em;font-family:var(--zen-serif);font-weight:500;text-align:left;background:none;border:0;padding:0;color:var(--zen-text);transition:color .12s}
 .focus-title:hover{color:var(--zen-accent)}
@@ -166,7 +175,7 @@ html.sp-host.sp-light { color-scheme:light;--zen-accent:#53715c;--zen-accent-tex
 @media(max-width:540px){
  .app{padding:12px 16px 7px}.brand-symbol{width:31px;height:31px;font-size:18px}.brand-title{font-size:14px}.brand-by{font-size:10px}
  .date{display:none}.quiet-button{padding:10px 13px;font-size:12px}.hero{padding:17px 0 10px}.hero h1{font-size:31px}.hero .sub{font-size:12px}.hero-progress{display:none}
- .focus-row{grid-template-columns:31px minmax(0,1fr);gap:15px}.complete-button{width:30px;height:30px}
+ .focus-row{grid-template-columns:42px minmax(0,1fr);gap:13px}.focus-row:nth-child(1){--complete-size:38px}.focus-row:nth-child(2){--complete-size:34px}.focus-row:nth-child(3){--complete-size:30px}.focus-row:nth-child(4){--complete-size:27px}.focus-row:nth-child(5){--complete-size:24px}.complete-button{margin-top:-5px}
  .focus-row:first-child:not(.empty):before{left:-11px;width:2px}
  .focus-row:nth-child(1) .focus-title{font-size:clamp(26px,4.6vh,39px)}
  .focus-row:nth-child(2) .focus-title{font-size:clamp(23px,3.9vh,32px)}
@@ -187,15 +196,15 @@ html.sp-host.sp-light { color-scheme:light;--zen-accent:#53715c;--zen-accent-tex
   <main class="app">
   <header class="topbar">
     <div class="brand"><span class="brand-symbol" aria-hidden="true">5</span><span><span class="brand-title">Five</span><span class="brand-by" style="display:block">by phuongtt2a</span></span></div>
-    <div class="top-actions"><span class="date" id="date-label"></span><button type="button" id="manage-button" class="quiet-button">Arrange Five <span aria-hidden="true">↗</span></button><button type="button" id="back-button" class="quiet-button hidden">← Back to focus</button></div>
+    <div class="top-actions"><span class="date" id="date-label"></span><button type="button" id="manage-button" class="quiet-button">Arrange Five <span aria-hidden="true">↗</span></button><button type="button" id="back-button" class="quiet-button hidden">← View Five</button></div>
   </header>
   <section id="focus-screen" class="focus-view" aria-labelledby="focus-heading">
-    <div class="hero"><h1 id="focus-heading">Today.</h1><div id="focus-progress" class="hero-progress">0 of 5 selected</div></div>
+    <div class="hero"><h1 id="focus-heading">Choose five. Focus on one.</h1><div id="focus-progress" class="hero-progress">0 of 5 planned</div></div>
     <div id="focus-list" class="focus-five" aria-label="Your five tasks, highest priority first"></div>
-    <footer class="footline"><button type="button" id="history-button" class="completion-stat" aria-label="View tasks finished today" aria-haspopup="dialog"><span class="round" aria-hidden="true">✓</span><span id="completed-count">0 finished today</span><span aria-hidden="true">↗</span></button><span class="foot-note">One task at a time</span></footer>
+    <footer class="footline"><button type="button" id="history-button" class="completion-stat" aria-label="View tasks finished today" aria-haspopup="dialog"><span class="round" aria-hidden="true">✓</span><span id="completed-count">0 finished today</span><span aria-hidden="true">↗</span></button></footer>
   </section>
   <section id="manage-screen" class="manage-screen hidden" aria-labelledby="manage-heading">
-    <div class="manage-header"><div><p class="kicker">Make a little room</p><h1 id="manage-heading">Arrange your Five.</h1><p>Choose or create up to five tasks, then drag them into your preferred order. The first is your next focus.</p></div><span id="manage-count" class="small-hint">0 / 5 selected</span></div>
+    <div class="manage-header"><div><p class="kicker">Make a little room</p><h1 id="manage-heading">Arrange your Five.</h1><p>Choose or create up to five tasks, then drag them into your preferred order. The first is your next focus.</p></div><span id="manage-count" class="small-hint">0 / 5 planned</span></div>
     <div class="manage-mobile-tabs"><button type="button" id="tab-browse" class="active">All tasks</button><button type="button" id="tab-selected">Your Five</button></div>
     <div class="manage-grid" id="manage-grid" data-tab="browse">
       <section id="browse-panel" class="manage-panel" aria-label="Choose existing tasks or create a task">
@@ -214,11 +223,11 @@ html.sp-host.sp-light { color-scheme:light;--zen-accent:#53715c;--zen-accent-tex
       <section id="selected-panel" class="manage-panel" aria-label="Your five focus tasks">
         <div class="panel-header"><div class="panel-heading"><h2>Your Five</h2><span id="queue-count" class="small-hint">0 / 5</span></div><p class="small-hint">Drag to reorder: the first task is your next focus. Use arrows if you prefer.</p></div>
         <div id="selected-queue" class="queue" aria-label="Your five tasks in priority order"></div>
-        <div class="queue-footer"><button id="suggest-button" class="quiet-button small flat" type="button">✧ Suggest remaining</button><button id="finish-button" class="quiet-button primary" type="button">Return to focus →</button></div>
+        <div class="queue-footer"><button id="suggest-button" class="quiet-button small flat" type="button">✧ Suggest remaining</button><button id="finish-button" class="quiet-button primary" type="button">View Five →</button></div>
       </section>
     </div>
   </section>
-  <div id="history-overlay" class="history-overlay hidden" role="presentation"><section class="history-card" role="dialog" aria-modal="true" aria-labelledby="history-heading"><div class="history-heading"><h2 id="history-heading">Finished today</h2><button id="history-close" class="history-close" type="button">Close</button></div><p class="history-copy">Tasks you finished from Five today. Returning one to To Do removes it from this count.</p><div id="history-items" class="history-items"></div></section></div>
+  <div id="history-overlay" class="history-overlay hidden" role="presentation"><section class="history-card" role="dialog" aria-modal="true" aria-labelledby="history-heading"><div class="history-heading"><h2 id="history-heading">Finished today</h2><button id="history-close" class="history-close" type="button">Close</button></div><p class="history-copy">Tasks completed from your Five today.</p><div id="history-items" class="history-items"></div></section></div>
   <div id="notice" class="banner hidden" role="status" aria-live="polite"></div>
 </main>
   <script>
@@ -504,7 +513,7 @@ html.sp-host.sp-light { color-scheme:light;--zen-accent:#53715c;--zen-accent-tex
     const current=ids();
     $('date-label').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'});
     $('completed-count').textContent=`${(state.saved.completed[state.today]||[]).length} finished today`;
-    $('focus-progress').textContent=`${countSelected()} of 5 selected`;
+    $('focus-progress').textContent=`${countSelected()} of 5 planned`;
     $('focus-list').innerHTML=Array.from({length:MAX},(_,index)=>{
       const t=task(current[index]);if(t&&!t.isDone)return focusRow(t,index);
       return `<div class="focus-row empty"><span class="empty-line">${index===0?'Your next focus':'Open space'}</span></div>`;
@@ -532,7 +541,7 @@ html.sp-host.sp-light { color-scheme:light;--zen-accent:#53715c;--zen-accent-tex
   }
   function renderQueue() {
     const chosen=ids();
-    $('manage-count').textContent=`${countSelected()} / 5 selected`;
+    $('manage-count').textContent=`${countSelected()} / 5 planned`;
     $('queue-count').textContent=`${countSelected()} / 5`;
     $('tab-selected').textContent=`Your Five (${countSelected()})`;
     $('suggest-button').disabled=countSelected()>=MAX||!state.tasks.some(t=>!t.isDone&&!chosen.includes(t.id));

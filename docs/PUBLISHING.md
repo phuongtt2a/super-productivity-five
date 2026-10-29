@@ -21,3 +21,15 @@ The earlier development release `v3.1.0` was published before the numbering was 
 5. Confirm the release workflow succeeded and download the ZIP from **Releases → Assets**.
 
 GitHub's auto-generated **Source code (zip)** archive is not the installable ZIP. Users should always download **`five-super-productivity.zip`** from the Release Assets.
+
+## Repository About section
+
+The GitHub **About** section is separate from the README. To make the project discoverable,
+open the repository homepage, click the gear icon next to **About**, and enter:
+
+- **Description:** `Five — A zen-inspired Super Productivity plugin to choose five priorities for today and focus on one task at a time.`
+- **Website:** `https://app.super-productivity.com/`
+- **Topics:** `super-productivity`, `productivity`, `focus`, `task-management`, `daily-planning`, `plugin`
+
+Select **Save changes**. The GitHub source-code publication tools do not modify
+repository About metadata; changing the README alone does not populate these fields.

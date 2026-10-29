@@ -62,3 +62,17 @@ test('dark mode does not turn the iframe canvas opaque', () => {
   assert.match(html,/html\.sp-host,html\.sp-host body,html\.sp-host \.app/);
   assert.match(html,/--zen-form-bg/);
 });
+
+test('focus and planning microcopy clearly describe the daily workflow', () => {
+  assert.match(html, /Choose five\. Focus on one\./);
+  assert.match(html, /of 5 planned/);
+  assert.match(html, /View Five/);
+  assert.doesNotMatch(html, /Back to focus|Return to focus|of 5 selected|<h1 id="focus-heading">Today\./);
+  assert.match(html, /Tasks completed from your Five today\./);
+  assert.doesNotMatch(html, /Returning one to To Do removes it from this count/);
+});
+test('completion circles scale with task priority and align to title', () => {
+  for (const px of [48, 42, 36, 31, 27]) assert.match(html, new RegExp('--complete-size:' + px + 'px'));
+  assert.match(html, /justify-self:center/);
+  assert.match(html, /margin-top:-9px/);
+});
