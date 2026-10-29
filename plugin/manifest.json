@@ -1,8 +1,8 @@
 {
   "id": "sp-top-5-today",
   "name": "Five",
-  "version": "3.1.0",
-  "description": "A calm five-slot focus view for Super Productivity. Choose, create, and arrange tasks for today; complete one to make room for another.",
+  "version": "1.0.0",
+  "description": "A calm focus view for Super Productivity. Choose your five most important tasks for today, then work on one at a time.",
   "manifestVersion": 1,
   "minSupVersion": "14.0.0",
   "author": "phuongtt2a",

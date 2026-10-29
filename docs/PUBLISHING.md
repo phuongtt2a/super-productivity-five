@@ -4,24 +4,20 @@ Target public repository: **https://github.com/phuongtt2a/super-productivity-fiv
 
 The repository should be public so that people can inspect the source and download a ZIP without a GitHub account. The repository name explicitly identifies the Super Productivity association. The plugin itself is called simply **Five**.
 
-## First publication
+## Current public repository and first stable release
 
-The first public commit is published as `release: publish Five v3.1.0`.
-The included GitHub Actions release workflow automatically validates the plugin,
-creates the four-file installable ZIP, and publishes `Five v3.1.0` as a
-GitHub Release with `five-super-productivity.zip` attached.
+The repository is published at [phuongtt2a/super-productivity-five](https://github.com/phuongtt2a/super-productivity-five).
 
-Open **Actions → Publish plugin release** to confirm the job passed, then
-open **Releases → Five v3.1.0 → Assets** to download the ZIP.
+The first stable release is `v1.0.0`. The workflow validates the package and creates a GitHub Release with **`five-super-productivity.zip`** under Assets.
 
-The repository's auto-generated **Source code (zip)** is **not** an installable
-plugin. Always download `five-super-productivity.zip` from the Release assets.
+The earlier development release `v3.1.0` was published before the numbering was reset. The new `v1.0.0` release is explicitly marked latest. The old development release can be removed by the maintainer if desired.
 
 ## Subsequent releases
 
 1. Edit source and tests.
-2. Bump `plugin/manifest.json` to the new semantic version, e.g. `3.1.1`.
-3. Update `CHANGELOG.md` and commit the changes to `main`.
-4. Run `git tag v3.1.1 && git push origin v3.1.1`.
+2. Bump the `plugin/manifest.json` semantic version, e.g. `1.0.1`.
+3. Update `CHANGELOG.md`, commit changes, and push to `main`.
+4. Tag the new commit: `git tag v1.0.1 && git push origin v1.0.1`.
+5. Confirm the release workflow succeeded and download the ZIP from **Releases → Assets**.
 
-If Releases do not publish, check the Actions job logs and GitHub Settings → Actions to ensure workflows and repository `GITHUB_TOKEN` writes are permitted. Note that Release assets are different from the auto-generated **Source code (zip)** archive: users should download **`five-super-productivity.zip` from Assets**.
+GitHub's auto-generated **Source code (zip)** archive is not the installable ZIP. Users should always download **`five-super-productivity.zip`** from the Release Assets.

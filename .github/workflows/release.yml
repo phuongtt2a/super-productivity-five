@@ -33,6 +33,7 @@ jobs:
       - name: Test and build release ZIP
         run: |
           python -m unittest discover -s tests -v
+          node --test tests/behavior.test.cjs
           node --check plugin/plugin.js
           python -c "from pathlib import Path; s=Path('plugin/index.html').read_text(); Path('/tmp/five-inline.js').write_text(s.split('<script>',1)[1].split('</script>',1)[0])"
           node --check /tmp/five-inline.js
@@ -43,11 +44,12 @@ jobs:
           TAG: ${{ steps.version.outputs.tag }}
         run: |
           if gh release view "$TAG" >/dev/null 2>&1; then
-            echo "Release $TAG already exists; no changes needed."
+            gh release edit "$TAG" --latest
           else
             gh release create "$TAG" \
               dist/five-super-productivity.zip \
               --target "$GITHUB_SHA" \
               --title "Five $TAG" \
-              --generate-notes
+              --notes "Five — the first stable release. Choose five priorities for today, then focus on one task at a time. Download the installable ZIP from Assets." \
+              --latest
           fi

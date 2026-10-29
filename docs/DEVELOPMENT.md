@@ -1,6 +1,6 @@
 # Development and architecture
 
-Five runs inside the Super Productivity plugin system and uses no framework, build tooling, or external APIs.
+Five runs inside the Super Productivity plugin system and uses no framework, build tooling, or external APIs. The implementation follows the [official plugin development guide](https://github.com/super-productivity/super-productivity/blob/master/docs/plugin-development.md) and the [plugin API type definitions](https://github.com/super-productivity/super-productivity/blob/master/packages/plugin-api/src/types.ts).
 
 ## Runtime
 
@@ -17,30 +17,36 @@ Data is one versioned JSON document maintained by the plugin:
 
 ```json
 {
-  "version": 2,
+  "version": 3,
   "days": {
-    "2026-10-29": ["task-id-A", null, null, "task-id-B", null]
+    "2026-10-29": ["task-id-A", "task-id-B", null, null, null]
   },
   "priorities": {
     "task-id-A": "high"
   },
   "completed": {
     "2026-10-29": ["task-id-C"]
+  },
+  "completedPositions": {
+    "2026-10-29": {"task-id-C": 0}
   }
 }
 ```
 
-Five stable positions are represented by strings or `null`. Older compact arrays are loaded as the first positions, padded to five. Each task ID may appear only once in the active slots. Saved day/completion entries older than 60 days are discarded when writing new state, to avoid uncontrolled growth.
+The five-element list stores up to five unique task IDs in priority order, followed by nulls. Older sparse selections are compacted during loading without changing the relative order. Saved day/completion entries older than 60 days are discarded when writing new state. `completedPositions` remembers where a task was before it finished to support undoing a completion later that day.
 
 ## Task behavior
 
-- **Add with +** places an existing task into the first available slot.
-- **Drop in an empty slot** places the dragged task into that exact position.
-- **Drop in an occupied slot** swaps positions for already selected tasks. For unselected tasks, nearby tasks shift only as needed to accommodate the new task, preserving five slots.
-- **Remove** clears the slot without completing or deleting the task.
-- **Complete** uses `updateTask(id, {isDone: true})`, records completion for today, and frees that slot.
-- **Create** uses `addTask({...})`. If fewer than five slots are filled, the new task is added to the first available slot.
-- **Task changes** are reloaded through the host notification bridge; an already completed task is removed from active slots.
+- **Add with +** appends an existing task to the bottom of the list.
+- **Drop** inserts at the target position and shifts lower priorities down.
+- **Move up/down** changes priority without needing drag-and-drop.
+- **Remove** closes the gap without completing or deleting the task.
+- **Complete** uses `updateTask(id, {isDone: true})`, records completion for today, shifts later tasks up, and opens the last available space.
+- **Create** uses `addTask({...})`. The new task is appended to the list when space is available.
+- **Task changes** are reloaded through the host notification bridge; externally completed tasks are removed and remaining tasks shift up.
+- **Reopen** undoes the count and restores the task to its former position if there is space. The finished counter is reconciled with the live host task state on every refresh, including tasks changed to To Do outside Five.
+- **Finished today** opens an accessible popup listing completed focus tasks and offers a Return to To Do control.
+- **New day** resets the finished tally to zero while retaining previous days in saved history.
 
 ## Maintain and release
 
@@ -51,3 +57,25 @@ Tagged releases are automatic via `.github/workflows/release.yml`. To publish ve
 ## Compatibility and testing
 
 The current code has been smoke-tested with simulated data and browser interactions. The host API surface was checked against the public Super Productivity plugin type definitions, but a live authenticated installation should still be regression-tested after publishing a release.
+
+## Theme and wallpaper integration
+
+The Super Productivity host injects CSS variables (including `--bg`,
+`--bg-lighter`, `--card-bg`, `--text-color`, `--text-color-muted`, and
+`--divider-color`) before the plugin's own inline styles. The plugin uses
+these variables for text, controls, transparent panels, and borders.
+
+The iframe canvas itself stays fully transparent (both the root and body),
+so the app's **global wallpaper, transparency, and blur settings** show through.
+In Chromium, setting `color-scheme: dark` on the iframe *root* can cause a
+black canvas to paint over the host wallpaper despite a transparent body.
+Therefore, Five uses a normal root scheme and applies the host dark/light
+scheme only to native inputs and selects. Testing must cover dark/light
+wallpapers and native controls independently.
+
+`docs/screenshots` contains illustrative preview captures from an iframe
+harness with simulated host theme variables and wallpaper; a real installation
+will use the user's own wallpaper and configured contrast.
+
+Run `node --test tests/behavior.test.cjs` for queue and completion regression
+tests in addition to the Python package tests.
