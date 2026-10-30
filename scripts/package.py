@@ -2,7 +2,7 @@
 """Package Five as the four-file ZIP expected by Super Productivity.
 
 Usage: python scripts/package.py [--output dist/five-super-productivity.zip]
-       python scripts/package.py --tag v1.0.3
+       python scripts/package.py --tag v1.0.4
 No third-party dependencies.
 """
 import argparse

@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.4 — Responsive focus and planning
+
+- Match Super Productivity’s injected UI font across both screens, including Vietnamese task names and form controls.
+- Improve responsive typography, spacing and tap targets on 320–430px phones.
+- Keep all five focus tasks visible without scrolling on portrait mobile.
+- Let **Your Five** rows scroll independently instead of squashing them together on small displays.
+- Give the task-creation form its own scrolling area; hide redundant task filters while editing.
+- Keep mobile controls accessible on short and landscape screens; avoid horizontal overflow.
+- Refresh documentation with screenshots of the real phone layouts.
+- Preserve the existing plugin ID and saved task selections.
+
+
 ## 1.0.3 — Clearer priorities and finished-task separation
 
 - Add a subtle divider between the Finished today introduction and its list or empty state.

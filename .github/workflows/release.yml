@@ -51,6 +51,6 @@ jobs:
               dist/five-super-productivity.zip \
               --target "$GITHUB_SHA" \
               --title "Five $TAG" \
-              --notes "Five — less, but meaningful. This patch release adds a subtle Finished today divider and clear High, Medium, Low priority labels. Download the installable ZIP from Assets." \
+              --notes "Five — less, but meaningful. This patch release improves phone and landscape layouts and uses Super Productivity’s UI font for Vietnamese task names. Download the installable ZIP from Assets." \
               --latest
           fi

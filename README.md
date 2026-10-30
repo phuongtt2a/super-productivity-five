@@ -7,7 +7,7 @@ An independent, zen-inspired plugin for **[Super Productivity](https://app.super
 
 **Super Productivity** is an open-source task manager and time-tracking app. Try it at **[app.super-productivity.com](https://app.super-productivity.com/)**. **Five** adds a quiet, dedicated view showing only five tasks you want to focus on now, in the order you choose. It's a companion to Super Productivity—not a replacement for its projects, backlog, or time tracking.
 
-![Five focus screen with five unnumbered priorities, larger titles at the top, and a translucent canvas](docs/screenshots/focus-dark-v1.0.3.webp)
+![Five focus screen with five unnumbered priorities, larger titles at the top, and a translucent canvas](docs/screenshots/focus-dark-v1.0.4.webp)
 
 *Dark-mode preview: Five follows your Super Productivity theme and lets your background show through.*
 
@@ -19,6 +19,7 @@ Choosing a small number of tasks can make your day feel clearer: fewer competing
 
 ## What you can do
 
+- **Use Super Productivity’s typography.** Five inherits the host application’s font stack for Vietnamese-friendly labels, task titles, and controls.
 - **See your Five at a glance.** The focus screen blends into Super Productivity in light and dark mode, with five clean lines without visible numbering, cards, a task library, or vertical scrolling. The top task is clearly largest; later tasks become progressively smaller.
 - **Arrange Five.** Open a separate planning screen to find tasks in your Super Productivity projects, search, sort by due date or **High / Medium / Low** priority, and drag them into a clear priority order.
 - **One priority queue.** Drag a task to any position to insert it there; other tasks shift to make room. No numbered slots and no gaps. Use the arrow controls if dragging is inconvenient.
@@ -26,23 +27,35 @@ Choosing a small number of tasks can make your day feel clearer: fewer competing
 - **Make room as you finish.** Mark the top task complete and the next task moves up automatically. An empty space opens at the bottom. You can select another task, even if you've already completed five tasks that day.
 - **Keep today's plan.** Your daily positions and plugin-defined priorities are saved using Super Productivity's plugin synced-data API.
 
-![Arrange Five screen showing task search and an unnumbered priority list](docs/screenshots/arrange-dark-v1.0.3.webp)
+![Arrange Five screen showing task search and an unnumbered priority list](docs/screenshots/arrange-dark-v1.0.4.webp)
 
 *Arrange Five uses theme-aware translucent panels; the task-creation form and controls follow the same palette.*
+
+### On phones and smaller screens
+
+Five retains **all five focus tasks on one screen**, without scrolling the focus list.
+On narrow phones, **Arrange Five** switches between *All tasks* and *Your Five*. The planning list scrolls independently, keeping its controls reachable rather than shrinking rows to fit. The task-creation form scrolls if the device has a short screen or is in landscape.
+
+| Focus · phone | Arrange Five · phone | New task · phone |
+| --- | --- | --- |
+| ![Five focus list on a 390px phone](docs/screenshots/focus-phone-v1.0.4.webp) | ![Choose and prioritize tasks on a small phone](docs/screenshots/arrange-phone-v1.0.4.webp) | ![Create a task from Five on a small phone](docs/screenshots/create-phone-v1.0.4.webp) |
+
+*Responsive previews use Vietnamese example tasks; no real user tasks are included. The plugin uses Super Productivity’s configured UI font stack.*
+
 
 ### Light-theme previews
 
 | Focus screen | Arrange Five |
 | --- | --- |
-| ![Five focus view in light theme](docs/screenshots/focus-light-v1.0.3.webp) | ![Arrange Five in light theme](docs/screenshots/arrange-light-v1.0.3.webp) |
+| ![Five focus view in light theme](docs/screenshots/focus-light-v1.0.4.webp) | ![Arrange Five in light theme](docs/screenshots/arrange-light-v1.0.4.webp) |
 
 These previews use sample tasks and test backgrounds. The installed plugin respects your own Super Productivity wallpaper, theme, and background-opacity settings.
 
 ## Latest release
 
-**[Download Five v1.0.3](https://github.com/phuongtt2a/super-productivity-five/releases/tag/v1.0.3)** — download `five-super-productivity.zip` from the **Assets** section. This is the installable plugin, not the source-code ZIP.
+**[Download Five v1.0.4](https://github.com/phuongtt2a/super-productivity-five/releases/tag/v1.0.4)** — download `five-super-productivity.zip` from the **Assets** section. This is the installable plugin, not the source-code ZIP.
 
-This patch release supersedes the earlier v1.0.2 package. Versioned screenshot filenames make sure GitHub displays the updated design rather than cached older images.
+This patch release supersedes the earlier v1.0.3 package. Versioned screenshot filenames make sure GitHub displays the updated design rather than cached older images.
 
 ## Install
 

@@ -96,3 +96,20 @@ test('priority labels use everyday words in all screens', () => {
   assert.match(html, /high:'High priority'/);
   assert.match(html, /\.mini-select\{[^}]*min-width:90px/);
 });
+
+
+test('mobile planning scrolls independently without shrinking task slots', () => {
+  assert.match(html, /@media\(max-width:790px\)/);
+  assert.match(html, /\.queue\{display:flex;flex-direction:column;overflow-y:auto/);
+  assert.match(html, /\.queue-row\{min-height:70px;flex:0 0 auto/);
+  assert.match(html, /\.create-form:not\(\.hidden\)\{flex:1 1 auto;min-height:0;overflow-y:auto/);
+  assert.match(html, /\.manage-panel:has\(\.create-form:not\(\.hidden\)\) \.tools\{display:none\}/);
+});
+
+
+test('font inherits host stack, with Vietnamese-safe fallbacks', () => {
+  assert.match(html, /--zen-ui:var\(--font-primary-stack,/);
+  assert.match(html, /"Noto Sans"/);
+  assert.match(html, /\.focus-title\{[^}]*font-family:var\(--zen-ui\)/);
+  assert.doesNotMatch(html, /Georgia|Iowan Old Style|--zen-serif/);
+});
