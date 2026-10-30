@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.5 — Mobile task-row separators
+
+- Keep project and due-date metadata on one line in the focus view, shrinking long project names before the due date.
+- Constrain task copy to its row so dividers never cross metadata on smaller phones or short landscape viewports.
+- Verify long Vietnamese titles and project names across phone and landscape viewport sizes.
+- Retain the same plugin ID and saved task selections.
+
 ## 1.0.4 — Responsive focus and planning
 
 - Match Super Productivity’s injected UI font across both screens, including Vietnamese task names and form controls.

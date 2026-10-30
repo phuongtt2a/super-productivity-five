@@ -113,3 +113,11 @@ test('font inherits host stack, with Vietnamese-safe fallbacks', () => {
   assert.match(html, /\.focus-title\{[^}]*font-family:var\(--zen-ui\)/);
   assert.doesNotMatch(html, /Georgia|Iowan Old Style|--zen-serif/);
 });
+
+
+test('focus metadata stays on one line above the task divider on narrow phones', () => {
+  assert.match(html, /\.focus-meta\{flex-wrap:nowrap;white-space:nowrap/);
+  assert.match(html, /\.focus-meta>span:first-child\{min-width:0;flex:0 1 auto;overflow:hidden;text-overflow:ellipsis/);
+  assert.match(html, /\.focus-copy\{[^}]*max-height:100%;[^}]*overflow:hidden/);
+  assert.match(html, /\.focus-row\{[^}]*border-bottom:1px solid var\(--zen-line\)/);
+});

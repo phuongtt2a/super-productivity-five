@@ -66,7 +66,7 @@ with sync_playwright() as p:
    # Each image uses actual plugin rendering with browser sample data.
    for key,setup in [('focus-phone',None),('arrange-phone','#manage-button')]:
     if setup:page.locator(setup).click()
-    out=OUT/f'{key}-v1.0.4.webp';
+    out=OUT/f'{key}-v1.0.5.webp';
     # JPEG is used as the Playwright intermediate to avoid transparency
     # getting composited unexpectedly by the WebP converter.
     page.screenshot(path=str(out),type='jpeg',quality=88)
@@ -77,7 +77,7 @@ with sync_playwright() as p:
    page.locator('#tab-browse').click()
    page.locator('#new-task-button').click()
    page.locator('#submit-create').scroll_into_view_if_needed()
-   out=OUT/'create-phone-v1.0.4.webp';page.screenshot(path=str(out),type='jpeg',quality=88)
+   out=OUT/'create-phone-v1.0.5.webp';page.screenshot(path=str(out),type='jpeg',quality=88)
    Image.open(out).convert('RGB').save(out,format='WEBP',quality=86)
   print(f'PASS {w}x{h}: 5 visible focus tasks, no horizontal overflow, editor and priority queue reachable')
   context.close()

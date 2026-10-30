@@ -26,7 +26,7 @@ with sync_playwright() as p:
   for screen in ('focus','arrange'):
    if screen=='arrange':page.locator('#manage-button').click()
    shot=page.screenshot(type='png',full_page=False)
-   path=OUT/f'{screen}-{mode}-v1.0.4.webp'
+   path=OUT/f'{screen}-{mode}-v1.0.5.webp'
    Image.open(BytesIO(shot)).convert('RGB').save(path,format='WEBP',quality=85,method=6)
    print(path.name, path.stat().st_size)
   context.close()
