@@ -7,13 +7,26 @@ HTML=(ROOT/'plugin/index.html').read_text(encoding='utf8')
 OUT=ROOT/'docs/screenshots'
 SIZES=[(320,568),(360,640),(375,667),(390,844),(430,932),(540,720),(600,760),(667,375),(844,390)]
 with sync_playwright() as p:
- b=p.chromium.launch(headless=True,executable_path='/usr/bin/chromium',args=['--no-sandbox','--disable-gpu'])
+ b=p.chromium.launch(headless=True,args=['--no-sandbox','--disable-gpu'])
  for w,h in SIZES:
   context=b.new_context(viewport={'width':w,'height':h},color_scheme='dark',device_scale_factor=1,reduced_motion='reduce',has_touch=w<768)
   page=context.new_page()
   page.set_content(HTML,wait_until='domcontentloaded')
   page.wait_for_selector('.focus-row')
   # Exercise the actual host font variable and Vietnamese glyphs/wrapping.
+  page.evaluate("""() => {
+    const root=document.documentElement;
+    root.classList.add('sp-host','sp-dark');
+    root.style.setProperty('--text-color','#f3f3f0');
+    root.style.setProperty('--text-color-muted','#b1bfc6');
+    root.style.setProperty('--bg','#192631');
+    root.style.setProperty('--bg-lighter','#293945');
+    root.style.setProperty('--card-bg','#26333b');
+  }""")
+  page.add_style_tag(content="""html::before{content:'';pointer-events:none;position:fixed;inset:0;z-index:-1;background:linear-gradient(140deg,rgba(76,138,108,.24),transparent 60%),var(--bg)}""")
+  assert page.evaluate("getComputedStyle(document.body).backgroundColor")=="rgba(0, 0, 0, 0)"
+  assert page.evaluate("getComputedStyle(document.documentElement).backgroundColor")=="rgba(0, 0, 0, 0)"
+  assert page.evaluate("Math.abs(document.querySelector('.app').getBoundingClientRect().width-Math.min(innerWidth,1220))<1")
   page.evaluate("""() => {
     document.documentElement.style.setProperty('--font-primary-stack', '"Segoe UI",Arial,sans-serif');
     const vietnamese = [

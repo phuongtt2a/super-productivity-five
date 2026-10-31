@@ -1,56 +1,98 @@
-name: Publish plugin release
+name: Publish Five
+
 on:
   push:
     branches: [main]
-    tags:
-      - 'v*'
   workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: five-release
+  cancel-in-progress: false
+
 jobs:
   release:
-    if: >-
-      startsWith(github.ref, 'refs/tags/v') ||
-      github.event_name == 'workflow_dispatch' ||
-      (github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, 'release:'))
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Choose release version
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Resolve version
         id: version
         shell: bash
         run: |
-          TAG="v$(python -c 'import json; print(json.load(open("plugin/manifest.json"))["version"])')"
-          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
-            TAG="${GITHUB_REF#refs/tags/}"
-          fi
-          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-      - name: Test and build release ZIP
+          VERSION="$(python -c 'import json; print(json.load(open("plugin/manifest.json"))["version"])')"
+          echo "tag=v$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Run functional tests and build
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+        shell: bash
         run: |
           python -m unittest discover -s tests -v
           node --test tests/behavior.test.cjs
           node --check plugin/plugin.js
           python -c "from pathlib import Path; s=Path('plugin/index.html').read_text(); Path('/tmp/five-inline.js').write_text(s.split('<script>',1)[1].split('</script>',1)[0])"
           node --check /tmp/five-inline.js
-          python scripts/package.py --tag "${{ steps.version.outputs.tag }}"
-      - name: Publish GitHub Release with installable ZIP
+          python scripts/package.py --tag "$TAG"
+
+      - name: Verify mobile and focus layouts before publishing
+        shell: bash
+        run: |
+          python -m pip install playwright==1.57.0 Pillow
+          python -m playwright install --with-deps chromium
+          python scripts/test_mobile.py
+          python scripts/test_focus_dividers.py
+
+      - name: Create or refresh release asset
+        shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ steps.version.outputs.tag }}
         run: |
-          if gh release view "$TAG" >/dev/null 2>&1; then
-            echo "ERROR: release $TAG already exists. Bump plugin/manifest.json instead of overwriting published assets." >&2
-            exit 1
+          set -euo pipefail
+          NAME="five-super-productivity.zip"
+          ASSET="dist/$NAME"
+          mkdir -p "$RUNNER_TEMP/previous" "$RUNNER_TEMP/verify"
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json assets --jq '.assets[].name' | grep -Fxq "$NAME"; then
+              gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern "$NAME" --dir "$RUNNER_TEMP/previous"
+              if cmp -s "$ASSET" "$RUNNER_TEMP/previous/$NAME"; then
+                echo "Current ZIP already matches the release."
+                exit 0
+              fi
+            fi
+            if ! gh release upload "$TAG" "$ASSET" --clobber --repo "$GITHUB_REPOSITORY"; then
+              echo "::error::Upload failed. Attempting asset rollback."
+              if test -f "$RUNNER_TEMP/previous/$NAME"; then
+                gh release upload "$TAG" "$RUNNER_TEMP/previous/$NAME" --clobber --repo "$GITHUB_REPOSITORY" || true
+              fi
+              exit 1
+            fi
           else
-            gh release create "$TAG" \
-              dist/five-super-productivity.zip \
-              --target "$GITHUB_SHA" \
-              --title "Five $TAG" \
-              --notes "Five — less, but meaningful. This patch release keeps task metadata visible above the row dividers on narrow mobile screens. Download the installable ZIP from Assets." \
-              --latest
+            gh release create "$TAG" "$ASSET" \
+              --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+              --title "Five $TAG" --latest \
+              --notes "Five — less, but meaningful. Install the plugin ZIP attached under Assets."
           fi
+          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern "$NAME" --dir "$RUNNER_TEMP/verify"
+          cmp "$ASSET" "$RUNNER_TEMP/verify/$NAME"
+          echo "Official release ZIP verified byte-for-byte."
+          NOTES="$RUNNER_TEMP/notes.md"
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json body --jq '.body' > "$NOTES"
+          awk '/<!-- five-automated-build -->/{exit}{print}' "$NOTES" > "$RUNNER_TEMP/prior.md"
+          cp "$RUNNER_TEMP/prior.md" "$NOTES"
+          SHORT="$(git rev-parse --short HEAD)"
+          HASH="$(sha256sum "$ASSET" | cut -d' ' -f1)"
+          printf '\n<!-- five-automated-build -->\nLatest tested ZIP from [%s](https://github.com/%s/commit/%s). SHA-256: %s. For same-version fixes the old tag remains unchanged; install the ZIP under Assets, not Source code.\n' \
+            "$SHORT" "$GITHUB_REPOSITORY" "$GITHUB_SHA" "$HASH" >> "$NOTES"
+          gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --notes-file "$NOTES"
+          echo "Published $TAG"

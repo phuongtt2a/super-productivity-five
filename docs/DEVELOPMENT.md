@@ -52,7 +52,7 @@ The five-element list stores up to five unique task IDs in priority order, follo
 
 Run `python -m unittest discover -s tests -v`, then `python scripts/package.py` to build the importable four-file ZIP.
 
-Tagged releases are automatic via `.github/workflows/release.yml`. To publish version `x.y.z`, update the manifest, update the changelog, commit, and push tag `vx.y.z`. The tag is validated against the manifest and the workflow creates a GitHub Release with `five-super-productivity.zip` attached.
+After an approved pull request merges into `main`, `.github/workflows/release.yml` automatically validates the app, including mobile/browser checks, and creates or refreshes the manifest-matched GitHub Release ZIP. Existing mutable releases may receive design-only same-version asset updates; the original Git tag remains pinned. For new version releases, update the manifest and changelog in the PR; no manual tag pushing is necessary.
 
 ## Compatibility and testing
 
@@ -79,3 +79,9 @@ will use the user's own wallpaper and configured contrast.
 
 Run `node --test tests/behavior.test.cjs` for queue and completion regression
 tests in addition to the Python package tests.
+
+## Shared NEO-Zen design standard
+
+See [NEO-Zen Design System](NEO-ZEN-DESIGN.md). Five shares a centered **1220px outer page container** and 41px brand mark with Today+ and Deadline Watch. The focus stage fills this shell while preserving the **five visible priorities in one viewport**. The planning screen retains independent scrollable panels, including at 320px and landscape heights. Controls and content have square-ish borders, subtle theme-aware color surfaces, and hard zero-blur offset shadows, while the entire iframe canvas and host-level containers remain transparent. **Never substitute a decorative font** for `var(--font-primary-stack)`—Vietnamese titles must render correctly. Regression tests cover priority ordering, drag/drop, browser controls, mobile and dark/light wallpaper rendering.
+
+The release workflow publishes after each tested merge to `main`, updating the existing v1.0.5 installable ZIP when its content changes without moving the original version tag.

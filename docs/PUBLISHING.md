@@ -12,15 +12,17 @@ The latest release is `v1.0.5`. The workflow validates the package and creates a
 
 The early development release `v3.1.0` predates semantic version reset. The `v1.0.3` patch release adds a Finished today divider and replaces P1/P2/P3 with High/Medium/Low; the earlier `v1.0.2` refines typography and corrects host button sizing; the earlier `v1.0.1` fixed the stale-release and cached-screenshot confusion without moving old public tags.
 
-## Subsequent releases
+## Continuous release workflow
 
-1. Edit source and tests.
-2. Bump the `plugin/manifest.json` semantic version, e.g. `1.0.6`.
-3. Update `CHANGELOG.md`, commit changes, and push to `main`.
-4. Tag the new commit: `git tag v1.0.6 && git push origin v1.0.6`.
-5. Confirm the release workflow succeeded and download the ZIP from **Releases → Assets**.
+Five now follows **feature branch → PR → functional/mobile tests → visual review → merge to main → automated release**. Opening a PR does not publish or change the official ZIP.
 
-GitHub's auto-generated **Source code (zip)** archive is not the installable ZIP. Users should always download **`five-super-productivity.zip`** from the Release Assets.
+- For minor visual fixes, keep the manifest at **v1.0.5**. When the reviewed PR merges, GitHub Actions rebuilds and tests the ZIP, compares it with the existing v1.0.5 asset, and replaces only changed ZIP bytes. It downloads and verifies the new asset and records the build commit in the release notes. **No manual upload or new version is required.**
+- For a new version, update `plugin/manifest.json`, changelog and release notes in a PR; after merging, the workflow creates the matching GitHub tag and release automatically.
+- If GitHub release immutability is enabled, existing assets cannot be replaced; publish a new version instead.
+
+The original version tag stays on its initial source commit when a same-version ZIP is refreshed. GitHub's auto-generated **Source code (zip)** is therefore *not* the installable ZIP. Always install the **`five-super-productivity.zip`** asset from the release page.
+
+All NEO-Zen UI updates must pass Vietnamese-font, dark/light host wallpaper, 320px/landscape, full-five-on-one-screen, and drag/edit/create regression checks. The matching [README screenshots](../README.md) are regenerated with synthetic data in the PR and committed before review.
 
 ## Repository About section
 
@@ -34,6 +36,6 @@ open the repository homepage, click the gear icon next to **About**, and enter:
 Select **Save changes**. The GitHub source-code publication tools do not modify
 repository About metadata; changing the README alone does not populate these fields.
 
-## Avoiding stale release files
+## Avoiding stale screenshots
 
-Published version tags refer to specific source commits. Do not move older tags or reuse the same ZIP asset name in a different source commit while claiming it is the same release. For any visible change, bump the manifest and publish a new patch version. Screenshot filenames may be suffixed with that version when image caching would otherwise show older screenshots.
+Docs use versioned screenshot paths for browser cache stability. For a design-only same-version update, regenerate and replace the screenshots **in the PR** using Playwright; then verify that the README images match the installation ZIP generated from the same commit. Never replace a public release asset with an untested local file. GitHub's automated release action owns that step after merge.
