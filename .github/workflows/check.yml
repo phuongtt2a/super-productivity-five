@@ -1,27 +1,72 @@
-name: Check plugin
+name: Check Five plugin
+
 on:
   push:
     branches: [main]
   pull_request:
 
+# Allows same-repository design PRs to store regenerated documentation screenshots.
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Verify package and manifest
-        run: python -m unittest discover -s tests -v
-      - name: Check JavaScript syntax
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify package, syntax and functional behavior
         run: |
+          python -m unittest discover -s tests -v
           node --test tests/behavior.test.cjs
           node --check plugin/plugin.js
           python -c "from pathlib import Path; s=Path('plugin/index.html').read_text(); Path('/tmp/five-inline.js').write_text(s.split('<script>',1)[1].split('</script>',1)[0])"
           node --check /tmp/five-inline.js
-      - name: Build installable ZIP
-        run: python scripts/package.py
+          python scripts/package.py
+      - name: Install browser testing and image support
+        run: |
+          python -m pip install playwright==1.57.0 Pillow
+          python -m playwright install --with-deps chromium
+      - name: Verify focus, manage, drag controls, and mobile view
+        run: |
+          python scripts/test_mobile.py
+          python scripts/test_focus_dividers.py
+          python scripts/desktop_shots.py
+      - name: Upload updated screenshots and ZIP for review
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: five-neo-zen-preview
+          path: |
+            docs/screenshots/*-v1.0.5.webp
+            dist/five-super-productivity.zip
+          if-no-files-found: warn
+      - name: Commit refreshed screenshots to same-repo PR
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/screenshots/focus-dark-v1.0.5.webp \
+                  docs/screenshots/focus-light-v1.0.5.webp \
+                  docs/screenshots/arrange-dark-v1.0.5.webp \
+                  docs/screenshots/arrange-light-v1.0.5.webp \
+                  docs/screenshots/focus-phone-v1.0.5.webp \
+                  docs/screenshots/arrange-phone-v1.0.5.webp \
+                  docs/screenshots/create-phone-v1.0.5.webp
+          if ! git diff --cached --quiet; then
+            git commit -m "docs: refresh NEO-Zen Five screenshots"
+            git push origin "HEAD:$HEAD_REF"
+          else
+            echo "Screenshots are already current."
+          fi
