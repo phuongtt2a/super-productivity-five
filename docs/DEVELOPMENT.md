@@ -79,3 +79,9 @@ will use the user's own wallpaper and configured contrast.
 
 Run `node --test tests/behavior.test.cjs` for queue and completion regression
 tests in addition to the Python package tests.
+
+## Shared NEO-Zen design standard
+
+See [NEO-Zen Design System](NEO-ZEN-DESIGN.md). Five shares a centered **1220px outer page container** and 41px brand mark with Today+ and Deadline Watch. The focus stage fills this shell while preserving the **five visible priorities in one viewport**. The planning screen retains independent scrollable panels, including at 320px and landscape heights. Controls and content have square-ish borders, subtle theme-aware color surfaces, and hard zero-blur offset shadows, while the entire iframe canvas and host-level containers remain transparent. **Never substitute a decorative font** for `var(--font-primary-stack)`—Vietnamese titles must render correctly. Regression tests cover priority ordering, drag/drop, browser controls, mobile and dark/light wallpaper rendering.
+
+The release workflow publishes after each tested merge to `main`, updating the existing v1.0.5 installable ZIP when its content changes without moving the original version tag.

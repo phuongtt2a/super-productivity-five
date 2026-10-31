@@ -27,7 +27,7 @@ SAMPLE = '''() => {
 }'''
 
 with sync_playwright() as p:
-    browser = p.chromium.launch(headless=True, executable_path='/usr/bin/chromium',args=['--no-sandbox','--disable-gpu'])
+    browser = p.chromium.launch(headless=True,args=['--no-sandbox','--disable-gpu'])
     for w,h in SIZES:
         context = browser.new_context(viewport={'width':w,'height':h},color_scheme='dark',reduced_motion='reduce')
         page = context.new_page()

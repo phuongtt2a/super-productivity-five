@@ -9,7 +9,7 @@ An independent, zen-inspired plugin for **[Super Productivity](https://app.super
 
 ![Five focus screen with five unnumbered priorities, larger titles at the top, and a translucent canvas](docs/screenshots/focus-dark-v1.0.5.webp)
 
-*Dark-mode preview: Five follows your Super Productivity theme and lets your background show through.*
+*Dark-mode preview: Five follows your Super Productivity theme and lets your background show through. The updated NEO-Zen treatment uses bold, bounded controls and restrained color accents while retaining the app's original font.*
 
 ## Why only five?
 
@@ -136,3 +136,7 @@ Watch **Actions → Publish plugin release** and then verify **Releases → Asse
 ## License
 
 [MIT](LICENSE) © 2026 **phuongtt2a**. Super Productivity belongs to its respective maintainers.
+
+### Visual consistency
+
+Five uses the same NEO-Zen design language and **1220px centered outer page width** as Today+ and Deadline Watch. The full-height focus experience and five visible priorities are intentionally preserved. Colors on cards and controls remain theme-aware and semi-transparent to respect the app's wallpaper and opacity. Typography always uses Super Productivity's own font, including Vietnamese.
