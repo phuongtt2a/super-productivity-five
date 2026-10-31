@@ -52,7 +52,7 @@ The five-element list stores up to five unique task IDs in priority order, follo
 
 Run `python -m unittest discover -s tests -v`, then `python scripts/package.py` to build the importable four-file ZIP.
 
-Tagged releases are automatic via `.github/workflows/release.yml`. To publish version `x.y.z`, update the manifest, update the changelog, commit, and push tag `vx.y.z`. The tag is validated against the manifest and the workflow creates a GitHub Release with `five-super-productivity.zip` attached.
+After an approved pull request merges into `main`, `.github/workflows/release.yml` automatically validates the app, including mobile/browser checks, and creates or refreshes the manifest-matched GitHub Release ZIP. Existing mutable releases may receive design-only same-version asset updates; the original Git tag remains pinned. For new version releases, update the manifest and changelog in the PR; no manual tag pushing is necessary.
 
 ## Compatibility and testing
 
