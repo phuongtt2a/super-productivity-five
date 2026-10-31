@@ -323,6 +323,125 @@ html.sp-host.sp-light { color-scheme:light;--zen-accent:#53715c;--zen-accent-tex
 
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important}}
 
+
+/* NEO-Zen v1. Keep injected Super Productivity font and host wallpaper opacity.
+   Five stays a viewport-height focus experience; no extra page scroll. */
+:root{
+ --neo-stroke:color-mix(in srgb,var(--zen-text) 70%,transparent);
+ --neo-surface:color-mix(in srgb,var(--zen-panel) 74%,transparent);
+ --neo-sage:color-mix(in srgb,var(--zen-accent) 17%,var(--zen-panel) 83%);
+ --neo-gold:color-mix(in srgb,#dda84b 15%,var(--zen-panel) 85%);
+ --neo-coral:color-mix(in srgb,#c88172 17%,var(--zen-panel) 83%);
+ --neo-blue:color-mix(in srgb,#86b8c1 15%,var(--zen-panel) 85%);
+ --neo-lilac:color-mix(in srgb,#b29ac9 15%,var(--zen-panel) 85%);
+}
+.app{
+ width:min(1220px,100%);
+ margin:0 auto;
+ padding-left:clamp(14px,4vw,54px);
+ padding-right:clamp(14px,4vw,54px);
+ font-family:var(--font-primary-stack,system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif);
+}
+.topbar{min-height:41px;gap:15px}
+.brand-symbol{width:41px;height:41px;border-radius:15px;background:#4d7560;color:#fff;font-family:var(--zen-ui)}
+.brand-title{font-size:18px;letter-spacing:-.035em}
+.focus-view,.manage-grid,.manage-header{width:100%;max-width:none}
+.focus-view{margin:0}
+.hero h1,.manage-header h1{font-weight:770}
+.quiet-button,.link-button,.history-close,.history-undo{
+ border:2px solid var(--neo-stroke);
+ border-radius:5px;
+ background:var(--neo-surface);
+ color:var(--zen-text);
+ box-shadow:2px 2px 0 var(--neo-stroke);
+ font-weight:740;
+}
+.quiet-button.primary{border-color:var(--neo-stroke);background:var(--neo-sage);color:var(--zen-text)}
+.quiet-button:not(:disabled):active,.link-button:not(:disabled):active{transform:translate(2px,2px);box-shadow:none}
+.quiet-button.flat{box-shadow:none;border-color:transparent;background:transparent}
+.focus-five{gap:0}
+.focus-row{
+ border:2px solid var(--neo-stroke);
+ border-radius:5px;
+ background:var(--neo-surface);
+ box-shadow:3px 3px 0 var(--neo-stroke);
+ margin:2px 5px 2px 0;
+ padding-left:5px;
+}
+.focus-row:first-child{border-top:2px solid var(--neo-stroke)}
+.focus-row:first-child:not(.empty):before{left:0;top:13%;bottom:13%;width:4px;border-radius:0;background:var(--zen-accent)}
+.focus-row:nth-child(1):not(.empty){background:var(--neo-gold);box-shadow:5px 5px 0 var(--neo-stroke)}
+.focus-row:nth-child(2):not(.empty){background:var(--neo-sage);box-shadow:4px 4px 0 var(--neo-stroke)}
+.focus-row:nth-child(3):not(.empty){background:var(--neo-blue)}
+.focus-row:nth-child(4):not(.empty){background:var(--neo-lilac)}
+.focus-row:nth-child(5):not(.empty){background:var(--neo-surface)}
+.focus-title{font-family:var(--zen-ui);font-weight:670}
+.complete-button{border:2px solid var(--neo-stroke);background:var(--neo-surface);color:var(--zen-text)}
+.complete-button:hover{background:var(--neo-sage)}
+.focus-meta{font-weight:600}
+.manage-panel,.history-card{
+ border:2px solid var(--neo-stroke);
+ border-radius:6px;
+ background:var(--neo-surface);
+ box-shadow:4px 4px 0 var(--neo-stroke);
+}
+.panel-header{border-bottom:2px solid var(--neo-stroke)}
+.panel-heading h2{font-weight:770}
+.tools input,.tools select,.create-form input,.create-form select,.mini-select{
+ border:2px solid var(--neo-stroke);
+ border-radius:5px;
+ background:var(--zen-input);
+}
+.manage-mobile-tabs button{
+ border:2px solid var(--neo-stroke);
+ border-radius:5px;
+ background:var(--neo-surface);
+ font-weight:700;
+}
+.manage-mobile-tabs button.active{background:var(--neo-gold);color:var(--zen-text)}
+.add-btn{border:2px solid var(--neo-stroke);border-radius:5px;background:var(--neo-sage);color:var(--zen-text)}
+.add-btn.chosen{background:var(--zen-accent);color:var(--zen-accent-text)}
+.queue-row:not(.placeholder){
+ border:1.5px solid var(--neo-stroke);
+ border-radius:4px;
+ background:var(--neo-sage);
+ margin-bottom:4px;
+ padding-left:8px;
+ padding-right:8px;
+}
+.queue-row.drop-over{background:var(--neo-gold);outline:2px dashed var(--zen-accent)}
+.picker-row:hover{background:var(--neo-blue)}
+.queue-footer{border-top:2px solid var(--neo-stroke)}
+.create-form{background:var(--neo-gold);border-bottom:2px solid var(--neo-stroke)}
+.banner{border:2px solid var(--neo-stroke);border-radius:5px;box-shadow:3px 3px 0 var(--neo-stroke)}
+.history-card{background:var(--zen-dialog,var(--zen-panel))}
+.history-close,.history-undo{border-radius:5px}
+html.sp-host,html.sp-host body,html.sp-host .app,
+html.sp-host #focus-screen,html.sp-host #manage-screen{
+ background:transparent!important;
+ background-color:transparent!important;
+}
+html.sp-host .manage-panel,html.sp-host .create-form{backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
+html.sp-host .quiet-button.primary:is(:focus,:active){background:var(--neo-sage);color:var(--zen-text)}
+html.sp-host :is(.quiet-button:not(.primary),.history-close,.history-undo,.link-button,.move-btn,.remove-btn,.add-btn:not(.chosen),.manage-mobile-tabs button):hover:not(:disabled){background:var(--neo-sage);color:var(--zen-text)}
+html.sp-host.sp-dark{color-scheme:normal}
+@media(max-width:540px){
+ .app{padding-left:16px;padding-right:16px}
+ .brand-symbol{width:34px;height:34px;font-size:18px}
+ .brand-title{font-size:16px}
+ .focus-row{margin:1px 4px 1px 0;padding-left:3px}
+ .focus-row:first-child:not(.empty):before{width:3px}
+ .focus-row:nth-child(1):not(.empty){box-shadow:3px 3px 0 var(--neo-stroke)}
+ .focus-row:nth-child(2):not(.empty){box-shadow:3px 3px 0 var(--neo-stroke)}
+ .manage-panel{box-shadow:2px 2px 0 var(--neo-stroke)}
+ .queue-row:not(.placeholder){margin-bottom:2px;padding-left:5px;padding-right:5px}
+}
+@media(max-height:580px){
+ .focus-row{margin-top:1px;margin-bottom:1px;padding-top:1px;padding-bottom:1px}
+ .focus-row:nth-child(1):not(.empty){box-shadow:3px 3px 0 var(--neo-stroke)}
+}
+@media(prefers-reduced-motion:reduce){.quiet-button{transition:none}}
+
 </style>
 </head>
 <body>
