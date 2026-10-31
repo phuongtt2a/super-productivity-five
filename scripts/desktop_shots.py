@@ -39,6 +39,21 @@ with sync_playwright() as p:
   """)
   assert page.evaluate("getComputedStyle(document.body).backgroundColor")=="rgba(0, 0, 0, 0)"
   page.evaluate(VIET)
+  layout=page.evaluate("""() => {
+    const app=document.querySelector('.app'),focus=document.querySelector('.focus-view');
+    const style=getComputedStyle(app);
+    return {appWidth:app.getBoundingClientRect().width,
+      innerWidth:app.getBoundingClientRect().width-parseFloat(style.paddingLeft)-parseFloat(style.paddingRight),
+      focusWidth:focus.getBoundingClientRect().width,
+      rootBg:getComputedStyle(document.documentElement).backgroundColor,
+      bodyBg:getComputedStyle(document.body).backgroundColor,
+      font:getComputedStyle(document.querySelector('.focus-title')).fontFamily};
+  }""")
+  assert abs(layout['appWidth']-1220)<1,(mode,layout,'shared page width')
+  assert abs(layout['focusWidth']-layout['innerWidth'])<1,(mode,layout,'focus content aligned with shell')
+  assert layout['rootBg']=='rgba(0, 0, 0, 0)',(mode,layout,'root transparency')
+  assert layout['bodyBg']=='rgba(0, 0, 0, 0)',(mode,layout,'body transparency')
+  assert 'Segoe UI' in layout['font'],(mode,layout,'host font')
   for screen in ('focus','arrange'):
    if screen=='arrange':page.locator('#manage-button').click()
    shot=page.screenshot(type='png',full_page=False)
