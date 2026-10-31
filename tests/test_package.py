@@ -44,6 +44,17 @@ class PackageTests(unittest.TestCase):
         for shot in set(shots):
             self.assertTrue((ROOT/shot).exists(),shot)
 
+    def test_neo_zen_shell_font_and_transparency(self):
+        html=(ROOT/'plugin/index.html').read_text()
+        self.assertIn('width:min(1220px,100%)',html)
+        self.assertIn('--font-primary-stack',html)
+        self.assertIn('html.sp-host,html.sp-host body,html.sp-host .app',html)
+        self.assertIn('background:transparent!important',html)
+        self.assertIn('box-shadow:5px 5px 0 var(--neo-stroke)',html)
+        self.assertIn('width:100%;max-width:none',html)
+        self.assertIn('html.sp-host.sp-dark{color-scheme:normal}',html)
+        self.assertTrue((ROOT/'docs/NEO-ZEN-DESIGN.md').exists())
+
     def test_ui_has_core_controls(self):
         html=(ROOT/'plugin/index.html').read_text()
         for item in ('Arrange Five','data-drop-index','data-drag-selected','data-drag-task','data-move','id="create-form"','id="focus-list"','id="sort"'):
